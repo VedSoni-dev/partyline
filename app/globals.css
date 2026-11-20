@@ -2,6 +2,19 @@
 @import "../kit/ui/kit.css";
 @import "../kit/ui/themes/mesh.css";
 
+/* Partyline's own look (DESIGN.md): the taste skill's plum-black-pink, dark so the big screen reads from the couch.
+   Overrides mesh, whose violet accent is off-limits. */
+:root {
+  --bg: #0d060b; --bg-2: #1b0e17; --card: #1b0e17; --card-2: #261521; --fg: #ffffff; --muted: #a79ba4; --line: rgb(255 255 255 / .12);
+  --accent: #ff488b; --accent-fg: #0d060b; --ok: #3ddc97; --danger: #ff5d5d;
+  --tracking-display: -0.03em; --radius: 24px; --radius-sm: 14px;
+  --shadow-1: 0 1px 0 rgb(255 255 255 / .04) inset, 0 2px 6px rgb(0 0 0 / .4);
+  --shadow-2: 0 1px 0 rgb(255 255 255 / .05) inset, 0 6px 16px rgb(0 0 0 / .45), 0 18px 40px rgb(0 0 0 / .35);
+  --shadow-3: 0 1px 0 rgb(255 255 255 / .06) inset, 0 10px 24px rgb(0 0 0 / .5), 0 30px 70px rgb(0 0 0 / .45);
+  color-scheme: dark;
+}
+.sk-card { backdrop-filter: none; }
+
 /* Tailwind reads the kit's tokens, so `bg-bg text-fg border-line text-muted bg-accent` all follow the theme. */
 @theme inline {
   --color-bg: var(--bg);
@@ -12,6 +25,9 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
+  --color-card-2: var(--card-2);
+  --color-ok: var(--ok);
+  --color-danger: var(--danger);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
   --font-mono: var(--font-code);
@@ -24,3 +40,24 @@ body { margin: 0; font-family: var(--font-body); min-height: 100dvh; }
 /* text-wrap-style only: the text-wrap shorthand would also set the wrap mode and beat Tailwind's `truncate` */
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: var(--tracking-display); text-wrap-style: balance; }
 p { text-wrap-style: pretty; }
+
+h1, h2, h3 { font-weight: 500; font-stretch: 104%; }
+.font-display { font-stretch: 108%; }
+
+/* Things landing on the stage: a slam with a little squash (law 1), then settle. */
+@keyframes pl-slam { 0% { opacity: 0; transform: scale(1.12) translateY(-8px); } 60% { opacity: 1; transform: scale(.98, 1.02); } 100% { transform: none; } }
+.pl-slam { animation: pl-slam 320ms var(--spring) both; }
+@keyframes pl-pop { 0% { transform: scale(.4); opacity: 0; } 70% { transform: scale(1.08); opacity: 1; } 100% { transform: none; } }
+.pl-pop { animation: pl-pop 260ms var(--spring) both; }
+@keyframes pl-ring { 0% { opacity: .9; transform: scale(.9); } 100% { opacity: 0; transform: scale(1.25); } }
+.pl-ring::after { content: ""; position: absolute; inset: -6px; border-radius: inherit; border: 3px solid var(--accent); animation: pl-ring 700ms var(--ease-out) 200ms both; pointer-events: none; }
+@keyframes pl-marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .pl-slam, .pl-pop, .sk-rise, .sk-stagger > * { animation: sk-fade 200ms linear both !important; }
+  .pl-ring::after { animation: none; display: none; }
+  .pl-fly { transition: none !important; }
+}
+
+/* The primary button is the one accent (DESIGN.md). */
+.sk-btn:not(.sk-btn-quiet) { background: var(--accent); color: var(--accent-fg); border-color: transparent; font-weight: 600; }
+.sk-btn:not(.sk-btn-quiet):hover { background: color-mix(in oklab, var(--accent) 86%, #fff); }

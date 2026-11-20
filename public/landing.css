@@ -1,0 +1,59 @@
+/* Partyline landing: page CSS only (the taste kit's system.css, layout.css, cards.css and motion.css do the rest).
+   What lives here: the mark, the real screenshots framed as a big screen and a phone, the steps, the bill. */
+
+.pl-mark { width: 28px; height: 28px; margin-right: 8px; flex: none; color: var(--p-ink); }
+.footer .pl-mark { color: currentColor; }
+
+/* the real screens: the big screen is a 16:10 window with a hairline, the phone a rounded handset */
+.ly-collage .ly-piece.pl-big, .ly-collage .ly-piece.pl-phone { overflow: hidden; background: #0d060b; padding: 0; }
+.ly-collage .ly-piece.pl-big { border-radius: 2.2cqw; outline: 1px solid rgb(255 255 255 / .14); outline-offset: -1px; }
+.ly-collage .ly-piece.pl-phone { border-radius: 5cqw; border: 0.9cqw solid #2a1824; }
+.ly-collage .ly-piece.pl-phone img { border-radius: 4cqw; }
+.ly-collage .ly-piece img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.ly-collage .ly-piece.pl-phone img { object-fit: contain; background: #0d060b; }
+.ly-collage .ly-piece { box-shadow: 0 2px 4px rgb(0 0 0 / .4), 0 28px 60px -24px rgb(0 0 0 / .8); }
+
+.pl-tile { aspect-ratio: 16 / 10; border-radius: var(--r-md, 18px); overflow: hidden; outline: 1px solid rgb(255 255 255 / .12); outline-offset: -1px; }
+.pl-tile img { width: 100%; height: 100%; object-fit: cover; }
+
+.pl-pair { display: flex; align-items: flex-end; gap: 4%; align-self: start; }
+.pl-pair .pl-frame { flex: 1 1 0; min-width: 0; }
+.pl-frame { border-radius: 18px; overflow: hidden; outline: 1px solid rgb(255 255 255 / .14); outline-offset: -1px; box-shadow: 0 30px 80px -30px rgb(0 0 0 / .9); }
+.pl-frame img, .pl-handset img { display: block; width: 100%; height: auto; }
+.pl-handset { width: 30%; border-radius: 30px; overflow: hidden; outline: 6px solid #241520; outline-offset: -6px; box-shadow: 0 30px 70px -20px rgb(0 0 0 / .9); }
+.pl-pair .pl-handset { flex: 0 0 22%; border-radius: 22px; }
+.pl-handset--solo { width: min(260px, 60%); }
+
+.pl-steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: var(--s-5, 20px); }
+.pl-steps li { counter-increment: s; display: grid; gap: 4px; padding-top: var(--s-4, 16px); border-top: 1px solid rgb(255 255 255 / .12); }
+.pl-steps li::before { content: "0" counter(s); font: 500 14px/1 var(--font-mono); color: var(--p-accent); }
+.pl-steps b { font-weight: 500; font-size: 20px; }
+.pl-steps span { color: var(--p-ink); }
+
+.pl-marquee { margin-top: var(--s-8, 56px); }
+.pl-marquee .t-label { margin-bottom: var(--s-3, 12px); }
+.pl-bill--modes dd { font: 400 16px/1.3 var(--font-text); color: var(--p-ink); }
+
+.pl-bill { margin: 0; display: grid; }
+.pl-bill > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 18px 0; border-top: 1px solid color-mix(in oklab, currentColor 18%, transparent); }
+.pl-bill > div:last-child { border-bottom: 1px solid color-mix(in oklab, currentColor 18%, transparent); }
+.pl-bill dt { font-size: 17px; }
+.pl-bill dd { margin: 0; font: 500 18px/1.2 var(--font-mono); text-align: right; }
+.pl-bill .pl-free { font-size: 40px; color: var(--p-accent); }
+
+.pl-word { font-size: clamp(64px, 12vw, 200px); line-height: .9; letter-spacing: -0.045em; }
+.pl-legal { display: inline-flex; flex-wrap: wrap; gap: 6px 18px; }
+
+@media (max-width: 1023px) {
+  .pl-pair { margin-top: var(--s-6, 24px); }
+}
+@media (max-width: 639px) {
+  .grid.tiles3 > .tile { grid-column: 1 / -1; }
+  .pl-pair .pl-handset { width: 34%; right: 0; }
+  .pl-bill .pl-free { font-size: 32px; }
+}
+
+.pl-free-shot { border-radius: 16px; overflow: hidden; outline: 1px solid rgb(255 255 255 / .14); outline-offset: -1px; }
+.pl-free-shot img { display: block; width: 100%; height: auto; }
+.pl-roast { aspect-ratio: 16 / 7; }
+.pl-roast img { height: 100%; object-fit: cover; object-position: 50% 78%; }

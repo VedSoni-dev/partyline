@@ -1,0 +1,10 @@
+// Partyline rooms: one Durable Object per room code. It relays messages between the host's laptop and the phones.
+// The game itself runs on the host's laptop; this only passes messages and remembers the last screen each phone saw.
+{
+  "name": "partyline-rooms",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "durable_objects": { "bindings": [{ "name": "ROOM", "class_name": "Room" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }],
+  "observability": { "enabled": true }
+}
