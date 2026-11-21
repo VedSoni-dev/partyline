@@ -38,12 +38,16 @@ export type ToPhone =
   | { t: "ended" }
   | { t: "error"; error: string };
 
-/** The rooms worker. Local dev: the laptop's own address on :8787, so phones on the same Wi-Fi reach it too. */
+/** Partyline's own rooms worker. A fork deploys rooms/ and sets NEXT_PUBLIC_ROOMS_URL to its own. */
+const HOSTED_ROOMS = "https://partyline-rooms.vedantn06soni.workers.dev";
 export function roomsUrl(): string {
   const env = process.env.NEXT_PUBLIC_ROOMS_URL;
   if (env) return env.replace(/\/$/, "");
   if (typeof window === "undefined") return "http://localhost:8787";
-  return `${window.location.protocol}//${window.location.hostname}:8787`;
+  const h = window.location.hostname;
+  // Local dev (this machine, or its address on the Wi-Fi): the worker from `npm run rooms`. Anywhere else: the hosted one.
+  if (h === "localhost" || /^(\d+\.){3}\d+$/.test(h) || h.endsWith(".local")) return `${window.location.protocol}//${h}:8787`;
+  return HOSTED_ROOMS;
 }
 export const wsUrl = (path: string) => roomsUrl().replace(/^http/, "ws") + path;
 
